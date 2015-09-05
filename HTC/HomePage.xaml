@@ -7,19 +7,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Home">
-
-    <Grid>
-        <!-- Single column and row for the moment -->
-        <Grid.Background>
-            <SolidColorBrush Color="Black"/>
-        </Grid.Background>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
-        <Label Grid.Column="1" Grid.Row="1" Foreground="White">Some kinda placeholder</Label>
-    </Grid>
+    <DockPanel>
+        <TabControl Name="MainTabControl" SelectionChanged="TabControl_SelectionChanged">
+            <TabItem Header="Download" Name="DownloadTab"/>
+        </TabControl>
+    </DockPanel>
 </Page>

@@ -1,7 +1,8 @@
 ﻿using System.Configuration;
 using System.IO;
 using System.Windows.Controls;
-using System.Windows.Forms;
+
+using System.Diagnostics;
 
 using HTC.SettingsAccess;
 
@@ -25,17 +26,33 @@ namespace HTC
             if (!sa.GetConfigValue(ConfigurationValues.WorkingDirectory, out workingDirPath) || 
                 !Directory.Exists(workingDirPath))
             {
-                var dialog = new FolderBrowserDialog();
-                while (dialog.ShowDialog() != DialogResult.OK);
+                /* This is annoying while debugging... add this later when it's actually required.
+                var dialog = new System.Windows.Forms.FolderBrowserDialog();
+                while (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK);
 
                 var sm = new SettingsMutator(config);
                 sm.SetConfigValue(ConfigurationValues.WorkingDirectory, dialog.SelectedPath);
                 sm.CommitChanges();
+                */
             }
 
             //
             // Do other stuff.
             //
+        }
+        void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var tabControl = sender as TabControl;
+            if (tabControl != null)
+            {
+                var selectedItem = tabControl.SelectedItem as TabItem;
+                Debug.WriteLine(selectedItem.Name);
+
+                var frame = new Frame();
+                var downloadPage = new DownloadPage();
+                frame.Content = downloadPage;
+                selectedItem.Content = frame;
+            }
         }
 
         public HomePage()

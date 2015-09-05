@@ -1,0 +1,36 @@
+﻿<Page x:Class="HTC.DownloadPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HTC"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" 
+      d:DesignWidth="300"
+      Title="DownloadPage">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Orientation="Vertical">
+            <Label Content="YouTube Search"/>
+            <TextBox Width="200" Height="23" Text="Search Query" HorizontalAlignment="Left" GotFocus="SearchBox_GotFocus"/>
+        </StackPanel>
+
+        <ListView Width="400" Height="200" Grid.Column="0" Grid.Row="1" Margin="2" Name="SearchResults" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="URL" DisplayMemberBinding="{Binding URL}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Page>

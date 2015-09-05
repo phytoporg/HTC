@@ -6,5 +6,6 @@
         xmlns:local="clr-namespace:HTC"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525"
+        ShowsNavigationUI="False"
         Source="HomePage.xaml">
 </NavigationWindow>
