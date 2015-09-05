@@ -137,6 +137,10 @@
       <Project>{e577e2c8-4e09-4451-b571-d9d75d1440c6}</Project>
       <Name>HTC.SettingsAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HTC.YouTube\HTC.YouTube.csproj">
+      <Project>{ba94e1a6-9273-45a1-8ced-aae8af470133}</Project>
+      <Name>HTC.YouTube</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
