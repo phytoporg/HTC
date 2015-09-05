@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-
-using Google.GData.YouTube;
-using Google.YouTube;
+using Google.Apis.Discovery;
+using Google.Apis.Services;
+using Google.Apis.YouTube.v3;
 
 namespace HTC
 {
@@ -10,37 +9,48 @@ namespace HTC
     {
         public class YouTubeClient
         {
-            private const string DeveloperKey = "AIzaSyCYpM-4IxQGIa5SGHSG3qd-KLJY-t85lW0";
+            private const string DeveloperKey = "AIzaSyB9xVtrdR5jXev0U0VV7y-pFWbTkezA7U8";
+            private const string ApplicationName = "FightTableHTC";
             private const string ServiceName = "youtube";
             private const string ApiVersion = "v3";
 
-            static YouTubeRequest _request = null;
+            static YouTubeService _service = null;
 
             public YouTubeClient()
             {
-                if (_request == null)
+                if (_service == null)
                 {
-                    var settings = new YouTubeRequestSettings("HTC", DeveloperKey);
-                    _request = new YouTubeRequest(settings);
+                    _service = new YouTubeService(new BaseClientService.Initializer()
+                    {
+                        ApiKey = DeveloperKey,
+                        ApplicationName = ApplicationName
+                    });
                 }
             }
 
-            List<YouTubeVideoMetadata> SearchForVideos(string queryString)
+            public List<YouTubeVideoMetadata> SearchForVideos(string queryString)
             {
-                var query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
-                query.Query = queryString;
-                query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
+                var searchListRequest = _service.Search.List("snippet");
+                searchListRequest.Q = queryString;
+                searchListRequest.MaxResults = 50;
 
-                var videoFeed = _request.Get<Video>(query);
-                var listOfResults = new List<YouTubeVideoMetadata>(videoFeed.Entries.Count());
-                foreach (var video in videoFeed.Entries)
+                var searchListResponse = searchListRequest.Execute();
+                var results = new List<YouTubeVideoMetadata>();
+                foreach (var searchResult in searchListResponse.Items)
                 {
+                    if (searchResult.Id.Kind != "youtube#video")
+                    {
+                        continue;
+                    }
+
                     var videoMetadata = new YouTubeVideoMetadata(
-                        name: video.Title,
-                        url: video.WatchPage.AbsoluteUri
+                        name: searchResult.Snippet.Title,
+                        id: searchResult.Id.VideoId
                         );
+                    results.Add(videoMetadata);
                 }
-                return null;
+
+                return results;
             }
         }
     }

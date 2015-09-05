@@ -3,6 +3,8 @@ using System.Windows.Controls;
 using System.Diagnostics;
 using System.Collections.Generic;
 
+using HTC.YouTube;
+
 namespace HTC
 {
     /// <summary>
@@ -13,23 +15,27 @@ namespace HTC
         public DownloadPage()
         {
             InitializeComponent();
-
-            FillListViewWithDummyData();
         }
 
-        private partial class YouTubeSearchResult
+        public void SearchButton_Clicked(object sender, RoutedEventArgs e)
         {
-            public string Name { get; set; }
-            public string URL { get; set; }
-        }
+            var button = sender as Button;
+            if (button == null)
+            {
+                throw new System.Exception("Expected a button!");
+            }
 
-        void FillListViewWithDummyData()
-        {
-            var results = new List<YouTubeSearchResult>();
-            results.Add(new YouTubeSearchResult() { Name = "Sunshine and Celery Stalks", URL = @"https://www.youtube.com/watch?v=cP0f5rvVkAU&index=30&list=RDMMNvVena0EY28" });
-            results.Add(new YouTubeSearchResult() { Name = "Funny Little Frog", URL = @"https://www.youtube.com/watch?v=lvS902DLEVI&index=27&list=RDMMNvVena0EY28" });
-            results.Add(new YouTubeSearchResult() { Name = "Tales of Symphonia Music - Fighting of the Spirits", URL = @"https://www.youtube.com/watch?v=25-BEGZCc0U&list=RDMMNvVena0EY28&index=27" });
-            SearchResults.ItemsSource = results;
+            //
+            // Don't bother to conduct a search if the query is empty.
+            //
+            var queryText = QueryText.Text;
+            if (queryText != string.Empty)
+            {
+                var client = new YouTubeClient();
+                var results = client.SearchForVideos(queryText);
+
+                SearchResults.ItemsSource = results;
+            }
         }
 
         public void SearchBox_GotFocus(object sender, RoutedEventArgs e)

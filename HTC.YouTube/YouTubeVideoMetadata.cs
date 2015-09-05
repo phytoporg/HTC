@@ -10,13 +10,20 @@ namespace HTC
     {
         public class YouTubeVideoMetadata
         {
-            public readonly string Name;
-            public readonly string Url;
+            public string Name { get; set; }
+            public string Url {
+                get
+                {
+                    return string.Format(@"http://youtube.com/watch?v={0}", Id);
+                }
+            }
 
-            public YouTubeVideoMetadata(string name, string url)
+            public string Id { get; set; }
+
+            public YouTubeVideoMetadata(string name, string id)
             {
                 Name = name;
-                Url = url;
+                Id = id;
             }
         }
     }

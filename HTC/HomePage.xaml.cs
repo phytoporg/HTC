@@ -40,6 +40,9 @@ namespace HTC
             // Do other stuff.
             //
         }
+
+        private Frame _downloadTabFrame = null;
+
         void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var tabControl = sender as TabControl;
@@ -48,10 +51,16 @@ namespace HTC
                 var selectedItem = tabControl.SelectedItem as TabItem;
                 Debug.WriteLine(selectedItem.Name);
 
-                var frame = new Frame();
-                var downloadPage = new DownloadPage();
-                frame.Content = downloadPage;
-                selectedItem.Content = frame;
+                if (selectedItem == DownloadTab)
+                {
+                    if (_downloadTabFrame == null) {
+                        _downloadTabFrame = new Frame();
+                        var downloadPage = new DownloadPage();
+                        _downloadTabFrame.Content = downloadPage;
+                    }
+
+                    selectedItem.Content = _downloadTabFrame;
+                }
             }
         }
 

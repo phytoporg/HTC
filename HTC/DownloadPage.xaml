@@ -21,14 +21,17 @@
 
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Orientation="Vertical">
             <Label Content="YouTube Search"/>
-            <TextBox Width="200" Height="23" Text="Search Query" HorizontalAlignment="Left" GotFocus="SearchBox_GotFocus"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="QueryText" Width="200" Height="23" Text="Search Query" HorizontalAlignment="Left" GotFocus="SearchBox_GotFocus"/>
+                <Button Content="Search" Click="SearchButton_Clicked"/>
+            </StackPanel>
         </StackPanel>
 
         <ListView Width="400" Height="200" Grid.Column="0" Grid.Row="1" Margin="2" Name="SearchResults" HorizontalAlignment="Left" VerticalAlignment="Top">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="URL" DisplayMemberBinding="{Binding URL}"/>
+                    <GridViewColumn Header="URL" DisplayMemberBinding="{Binding Url}"/>
                 </GridView>
             </ListView.View>
         </ListView>
