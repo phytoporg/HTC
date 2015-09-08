@@ -10,6 +10,7 @@
     <DockPanel>
         <TabControl Name="MainTabControl" SelectionChanged="TabControl_SelectionChanged">
             <TabItem Header="Download" Name="DownloadTab"/>
+            <TabItem Header="Options" Name="OptionsTab"/>
         </TabControl>
     </DockPanel>
 </Page>

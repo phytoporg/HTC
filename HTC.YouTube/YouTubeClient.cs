@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Google.Apis.Discovery;
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 
